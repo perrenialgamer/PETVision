@@ -1,117 +1,109 @@
 # PETVision
 
-[cite_start]**An Automated Polymer Segregator using Computer Vision & Deep Learning.** [cite: 4]
+**An Automated Polymer Segregator using Computer Vision & Deep Learning**
 
-[cite_start]PETVision (formerly PET-Perplexity) is a multi-service application designed to revolutionize the recycling industry by automating the identification and classification of PET bottles[cite: 9]. [cite_start]It uses advanced AI to analyze images of compressed bottles, providing real-time analytics for inventory, pricing, and quality control[cite: 8, 9].
+**PETVision**is a multi-service application designed to modernize the recycling industry by automating the identification and classification of PET bottles.  
+It uses advanced AI techniques to analyze images of compressed bottles and provides real-time analytics for inventory management, pricing optimization, and quality control.
 
 ---
 
 ## 🚀 Key Features
 
-The system processes images of plastic bales to perform the following:
+The system processes images of plastic bales and performs the following tasks:
 
 ### 1. Color Code Identification
-[cite_start]Detects and classifies bottles into industry-standard color categories for proper pricing[cite: 19, 20]:
-* [cite_start]**Clear/Transparent:** Colorless bottles (Highest value)[cite: 13, 21].
-* [cite_start]**Light Blue:** Common for packaged water[cite: 22].
-* [cite_start]**Green:** Common for soft drinks and beer[cite: 23].
-* [cite_start]**Brown/Amber:** Used for beverages[cite: 24].
-* [cite_start]**Mixed/Other:** Various other colors[cite: 25].
+Detects and classifies bottles into industry-standard color categories for accurate pricing:
+- **Clear / Transparent** – Colorless bottles (highest value)
+- **Light Blue** – Common for packaged drinking water
+- **Green** – Soft drinks and beer bottles
+- **Brown / Amber** – Beverage bottles
+- **Mixed / Other** – Remaining colors
+
+---
 
 ### 2. Material Type Detection
-[cite_start]Distinguishes between valid PET bottles and contaminants to ensure material purity[cite: 26]:
-* [cite_start]**PET Identification:** Detects recycling code '1', 'PET', 'PETE' and typical glossy/transparent nature[cite: 27, 28].
-* [cite_start]**Contaminant Flagging:** Identifies and flags Non-PET items like HDPE (Code 2), PP (Code 5), and PVC (Code 3)[cite: 29].
+Ensures material purity by distinguishing PET bottles from contaminants:
+- **PET Identification** – Detects recycling code `1`, `PET`, `PETE`, and typical glossy/transparent appearance
+- **Contaminant Flagging** – Identifies Non-PET plastics such as HDPE (Code 2), PP (Code 5), and PVC (Code 3)
+
+---
 
 ### 3. Size & Weight Estimation
-[cite_start]Classifies bottles into standard capacities and estimates weight based on size/thickness data[cite: 31, 39]:
-* [cite_start]**200-300ml:** ~10-12g[cite: 32, 42].
-* [cite_start]**500-600ml:** ~18-25g[cite: 33, 42].
-* [cite_start]**1 Liter:** ~35-45g[cite: 42].
-* [cite_start]**2 Liter:** ~55-70g[cite: 34, 42].
+Classifies bottles into standard size categories and estimates weight:
+- **200–300 ml** → ~10–12 g  
+- **500–600 ml** → ~18–25 g  
+- **1 Liter** → ~35–45 g  
+- **2 Liter** → ~55–70 g  
+
+---
 
 ### 4. Brand Recognition
-[cite_start]Identifies major brands using logo detection and label analysis for **EPR (Extended Producer Responsibility)** compliance[cite: 36, 65].
-* [cite_start]*Supported Brands:* Bisleri, Kinley, Aquafina, Coca-Cola, Pepsi, Sprite, Fanta, Minute Maid, Tropicana, and others[cite: 37].
+Identifies major beverage brands using logo detection and label analysis to support  
+**EPR (Extended Producer Responsibility)** compliance.
+
+Supported brands include:  
+Bisleri, Kinley, Aquafina, Coca-Cola, Pepsi, Sprite, Fanta, Minute Maid, Tropicana, and others.
+
+---
 
 ### 5. Analytics Dashboard
-[cite_start]Generates a comprehensive report for every uploaded batch[cite: 43], including:
-* [cite_start]Total bottle count & PET vs. Non-PET ratio[cite: 45, 47].
-* [cite_start]Color distribution (pie chart) and Size distribution (bar chart)[cite: 46, 48].
-* [cite_start]Quality grading (% of clear PET)[cite: 51].
-* [cite_start]Exportable reports (PDF/Excel)[cite: 52].
+Generates a detailed report for every uploaded batch, including:
+- Total bottle count
+- PET vs Non-PET ratio
+- Color distribution (pie chart)
+- Size distribution (bar chart)
+- Quality grading (% of clear PET)
+- Exportable reports (PDF / Excel)
 
 ---
 
 ## 🛠 Tech Stack
 
-* **Frontend:** Vite (React/Vue)
-* **Backend:** Node.js (Express)
-* **ML Service:** Python (FastAPI)
-* **AI/ML Models:** YOLOv8 (Segmentation), EfficientNet (Classification)
-* **Containerization:** Docker
+- **Frontend:** React (Vite)
+- **Backend:** Node.js (Express)
+- **ML Service:** Python (FastAPI)
+- **AI / ML Models:** YOLOv8 (Segmentation), EfficientNet (Classification)
+- **Containerization:** Docker
 
 ---
 
 ## ✅ Quick Start (Recommended: Docker)
 
-1. **Prepare Models:** Copy the required ML models into `ml_service/models/` (see checklist below).
-2. **Launch Services:** From the project root, run:
+### 1. Prepare ML Models
+Copy the required ML model files into:
+
+ml_service/models/
+
+
+Required files:
+- `yolov8n-seg.pt`
+- `efficientnet_pet_vs_nonpet.pth`
+- `efficientnet_brands.pth`
+- `brand_classes.txt`
+
+---
+
+### 2. Run All Services
+
+From the project root:
 
 ```bash
 npm run docker:up
+Services will be available at:
 
-A multi-service app (frontend, Node backend, FastAPI ML service) for bottle classification.
+Frontend: http://localhost:5173
 
----
+Backend API: http://localhost:4000
 
-## Quick start (recommended: Docker) ✅
+ML Service: http://localhost:8000
+(Docker internal service name: ml_service)
 
-1. Copy required ML models into `ml_service/models/` (see checklist below).
-2. From project root run:
+To stop all services:
 
-```bash
-npm run docker:up
-```
-
-- Frontend will be available at: http://localhost:5173
-- Backend API at: http://localhost:4000
-- ML service at: http://localhost:8000 (internal service name: `ml_service`)
-
-To stop: `npm run docker:down`
-
----
-
-## Run services locally (without Docker) ⚡
-
-- Install node deps: `npm install`
-- Frontend: `npm --prefix frontend run dev` (Vite on 5173)
-- Backend: `npm run dev` (nodemon)
-- ML service: `pip install -r ml_service/requirements.txt` then `npm run ml:run`
-
-
----
-
-## Checklist — required files before first run ⚠️
-
-- ml models: place these in `ml_service/models/`:
-  - `yolov8n-seg.pt`
-  - `efficientnet_pet_vs_nonpet.pth`
-  - `efficientnet_brands.pth`
-  - `brand_classes.txt`
-- `uploads/` directory is used by the backend to store uploaded images (already present).
-
----
-
-## Ports
-
-- Frontend: 5173
-- Backend: 4000
-- ML service: 8000
-
----
-
-
-
-# PETVision
-
+npm run docker:down
+⚡ Run Services Locally (Without Docker)
+npm install
+npm --prefix frontend run dev
+npm run dev
+pip install -r ml_service/requirements.txt
+npm run ml:run
