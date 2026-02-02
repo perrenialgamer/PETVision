@@ -1,0 +1,6 @@
+export const SERVER_CONFIG = {
+  PORT: 5000,
+  UPLOAD_DIR: "uploads",
+  MAX_FILE_SIZE_MB: 10,
+  MAX_IMAGES_PER_BATCH: 20,
+};

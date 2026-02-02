@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: pet-perplexity-backend:latest
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - ML_API_URL=http://ml_service:8000
+      - NODE_ENV=production
+    volumes:
+      - ./uploads:/app/uploads:rw
+    depends_on:
+      - ml_service
+
+  ml_service:
+    build:
+      context: ./ml_service
+      dockerfile: Dockerfile
+    image: pet-perplexity-ml:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+    volumes:
+      - ./ml_service/models:/app/models:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/openapi.json"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: pet-perplexity-frontend:latest
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+# Optional: uncomment and configure if you need a MongoDB for development
+#  mongo:
+#    image: mongo:6
+#    restart: unless-stopped
+#    volumes:
+#      - mongo-data:/data/db
+
+#volumes:
+#  mongo-data:
+#    driver: local

@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-slate-50 text-slate-900 overflow-x-hidden;
+    user-select: none;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+@layer components {
+  /* --- THEME UTILITIES --- */
+  .mesh-bg {
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(at 0% 0%, hsla(158, 82%, 57%, 0.15) 0px, transparent 50%),
+      radial-gradient(
+        at 100% 0%,
+        hsla(190, 80%, 60%, 0.15) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 100% 100%,
+        hsla(158, 82%, 57%, 0.15) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 0% 100%,
+        hsla(190, 80%, 60%, 0.15) 0px,
+        transparent 50%
+      );
+  }
+
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+  }
+
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-xl border border-white/60 shadow-sm 
+    transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:bg-white/80 hover:-translate-y-1;
+  }
+
+  /* --- BUTTONS --- */
+  .btn-primary {
+    @apply relative overflow-hidden bg-slate-900 text-white shadow-xl shadow-emerald-900/10 
+    hover:shadow-emerald-500/20 active:scale-[0.98] transition-all duration-300;
+  }
+
+  .btn-primary::after {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 transition-opacity duration-300;
+  }
+
+  .btn-primary:hover::after {
+    @apply opacity-100;
+  }
+
+  .btn-primary span,
+  .btn-primary svg {
+    @apply relative z-10;
+  }
+}
+
+/* --- PRINT STYLES (Unchanged Logic, just ensuring cleanup) --- */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: #0f172a !important;
+  }
+  @page {
+    margin: 15mm;
+  }
+  .glass-card,
+  .glass-panel {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    background: white !important;
+    backdrop-filter: none !important;
+  }
+}

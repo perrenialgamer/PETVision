@@ -1,0 +1,33 @@
+{
+  "name": "pet-perplexity",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon backend/src/index.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "node backend/src/index.js",
+
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down",
+
+    "ml:install": "pip install -r ml_service/requirements.txt",
+    "ml:run": "python -m uvicorn ml_service.inference:app --host 0.0.0.0 --port 8000"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "form-data": "^4.0.5",
+    "mongoose": "^9.1.5",
+    "multer": "^2.0.2",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
