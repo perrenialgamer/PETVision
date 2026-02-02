@@ -2,7 +2,7 @@
 
 **An Automated Polymer Segregator using Computer Vision & Deep Learning**
 
-**PETVision**is a multi-service application designed to modernize the recycling industry by automating the identification and classification of PET bottles.  
+**PETVision** is a multi-service application designed to modernize the recycling industry by automating the identification and classification of PET bottles.  
 It uses advanced AI techniques to analyze images of compressed bottles and provides real-time analytics for inventory management, pricing optimization, and quality control.
 
 ---
@@ -107,3 +107,4 @@ npm --prefix frontend run dev
 npm run dev
 pip install -r ml_service/requirements.txt
 npm run ml:run
+
